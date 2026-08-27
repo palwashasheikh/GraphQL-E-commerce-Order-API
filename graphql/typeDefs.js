@@ -57,5 +57,8 @@ export const typeDefs = `#graphql
     # Mutations (2)
     createOrder(customerId: ID!, items: [OrderItemInput!]!): Order!
     updateOrderStatus(orderId: ID!, status: OrderStatus!): Order!
+    updateProductStock(productId: ID!, stock: Int!): Product!
   }
 `;
+
+

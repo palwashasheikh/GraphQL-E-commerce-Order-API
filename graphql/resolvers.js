@@ -1,5 +1,8 @@
 import { pool } from '../db/pool.js';
 
+
+
+
 function mapCustomer(row) {
   if (!row) return null;
   return {
@@ -148,7 +151,7 @@ export const resolvers = {
       }
     },
 
-    updateOrderStatus: async (_parent, { orderId, status }) => {
+    updateOrderStatus: async (_parent, { orderId, status }) => {  
       const { rows } = await pool.query(
         'UPDATE orders SET status = $1 WHERE id = $2 RETURNING *',
         [status, orderId]
@@ -158,9 +161,23 @@ export const resolvers = {
       }
       return mapOrder(rows[0]);
     },
+
+    updateProductStock: async (_parent, { productId, stock }) => {
+      if (stock < 0) {
+        throw new Error(`Stock for product ${productId} cannot be negative.`);
+      }
+      const { rows } = await pool.query(
+        'UPDATE products SET stock = $1 WHERE id = $2 RETURNING *',
+        [stock, productId]
+      );
+      if (rows.length === 0) {
+        throw new Error(`Product ${productId} does not exist.`);
+      }
+      return mapProduct(rows[0]);
+    },
   },
 
-  // ---- Field resolvers: this is where batching actually happens ----
+
 
   Order: {
     customer: async (order, _args, { loaders }) => {
