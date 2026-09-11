@@ -36,6 +36,9 @@ was placed (not today's live product price).
 
 **Mutations:** `createOrder`, `updateOrderStatus`
 
+
+**Live demo:** https://graphql-e-commerce-order-api.onrender.com — [Apollo Sandbox to query it](https://studio.apollographql.com/sandbox/explorer?endpoint=https://graphql-e-commerce-order-api.onrender.com/) (first request may take 30-60s if the service has been idle — Render free tier spins down after inactivity)
+
 ## Try it
 
 Open http://localhost:4000 (Apollo Sandbox) and run:
